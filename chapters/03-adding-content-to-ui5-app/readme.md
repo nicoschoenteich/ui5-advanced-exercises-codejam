@@ -19,9 +19,6 @@ We want to build an app that allow users to browse and search a list of products
 	xmlns:core="sap.ui.core"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
-	xmlns:f="sap.f"
-	xmlns:macros="sap.fe.macros"
-	xmlns:html="http://www.w3.org/1999/xhtml"
 	controllerName="uimodule.ext.main.Main">
 	<Page id="Main" showHeader="false" class="sapUiContentPadding">
 		<VBox justifyContent="SpaceBetween" width="100%" height="100%">
