@@ -53,7 +53,7 @@ The OData action and its parameters are now bound to the rating indicator, but s
 	public async onCreateRating(event: RatingIndicator$ChangeEvent) {
 		const ratingIndicator = event.getSource();
 		const operation = ratingIndicator.getObjectBinding() as ODataContextBinding;
-		operation.execute.then(() => {
+		operation.execute().then(() => {
 			console.log("logging the result...", operation.getBoundContext().getObject());
 			MessageToast.show("Rating submitted.");
 			operation.getModel().refresh();
@@ -110,7 +110,7 @@ The application now includes a rating indicator. Feel free to test it and see th
 
 <br>
 
-> The TS language server complained that the `execute` method of the `ODataBindingContext` is deprecated. Replace it with `invoke()` to fix this. This is a great example of how TS provides a comprehensive experience that feels like the documentation is built into your IDE.
+> The TS language server complained that the `execute()` method of the `ODataBindingContext` is deprecated. Replace it with `invoke()` to fix this. This is a great example of how TS provides a comprehensive experience that feels like the documentation is built into your IDE.
 >
 > The TS language server also complained that the return value of `operation.getModel()` might possibly be null - potentially resulting in an ugly error when calling `refresh()` on it. You can fix this by using the optional chaining operator `?.`: `operation.getModel()?.refresh()`. This way, `refresh()` will only be called if `getModel()` returns a non-null value. This is a great example of how TS helps you to write more robust code and avoid runtime errors.
 
