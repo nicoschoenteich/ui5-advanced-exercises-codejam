@@ -14,7 +14,7 @@ By the end of this chapter we will have prepared our CAP server for the scenario
 
 Our CAP server by default was generated including a bookshop data model. We will replace it with a supermarket data model.
 
-➡️ Replace the content of the `codejam.supermarket/server/db/schema.cds` file with the following code:
+➡️ Create a new file `codejam.supermarket/server/db/schema.cds` file with the following code:
 
 ```cds
 namespace supermarket;
@@ -90,7 +90,7 @@ service CatalogService {
 
 ### 4. Add service implementation
 
-➡️ Create a new file `codejam.supermarket/server/srv/cat-service.js` and add the following code:
+➡️ Create a new file `codejam.supermarket/server/srv/cat-service.cjs` (important: "**.cjs**") and add the following code:
 
 ```javascript
 module.exports = function CatalogService() {
