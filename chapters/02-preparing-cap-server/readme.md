@@ -92,23 +92,29 @@ service CatalogService {
 
 ### 4. Add service implementation
 
-➡️ Create a new file `codejam.supermarket/server/srv/cat-service.cjs` (important: "**.cjs**") and add the following code:
+➡️ Create a new file `codejam.supermarket/server/srv/cat-service.js` and add the following code:
 
 ```javascript
-export default function CatalogService() {
-	this.on("getAvgRating", async () => {
-		const ratings = await SELECT("rating").from("Ratings")
-		const avg = ratings.map(r => r.rating).reduce((a, b) => a + b) / ratings.length
-		return avg.toFixed(2)
-	})
+import cds from "@sap/cds"
 
-	this.on("createRating", async ({ data: { rating } }) => {
-		const result = await INSERT({ rating }).into("Ratings")
-		const entries = [...result]
-		return await SELECT.one.from("Ratings").where({
-			ID: entries[0].ID
+export class CatalogService extends cds.ApplicationService {
+	async init() {
+		this.on("getAvgRating", async () => {
+			const ratings = await SELECT("ratings").from("Ratings")
+			const avg = ratings.map(r => r.rating).reduce((a, b) => a + b) / ratings.length
+			return avg.toFixed(2)
 		})
-	})
+
+		this.on("createRating", async ({ data: { rating } }) => {
+			const result = await INSERT({ rating }).into("Ratings")
+			const entries = [...result]
+			return await SELECT.one.from("Ratings").where({
+				ID: entries[0].ID
+			})
+		})
+
+		await super.init();
+	}
 }
 ```
 
