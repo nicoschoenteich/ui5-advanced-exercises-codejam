@@ -42,13 +42,11 @@ To be able to follow the instructions in this repository you need to fulfill ***
 git clone https://github.com/SAP-samples/ui5-advanced-exercises-codejam
 ```
 
-The command created new directory for the cloned repository.
+The command created a new directory for the cloned repository.
 
 ### 4. Navigate into the newly created directory
 
-We want to navigate into the newly created `ui5-advanced-exercises-codejam/` directory.
-
-➡️ Execute the following command in the same terminal session:
+➡️ Execute the following command in the same terminal session to navigate into the newly created directory:
 
 ```bash
 cd ui5-advanced-exercises-codejam/
