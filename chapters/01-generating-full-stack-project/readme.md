@@ -68,7 +68,7 @@ To better understand the generated monorepo project setup, you can inspect the r
 
 <br>
 
-At this point you might be wondering why we enabled the SAP Fiori elements flexible programming model (FPM) for our UI5 application (`uimodule`). The reasons here are (1) that the FPM templates support TypeScript and (2) that the FPM allows us to use all the freestyle development features of UI5 (via custom pages or fragments), while still providing a solid structure and the option of adding Fiori elements features later on, such as [building blocks](https://sapui5.hana.ondemand.com/test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/buildingBlockOverview) or whole pages (e.g object page). 
+At this point you might be wondering why we enabled the SAP Fiori elements flexible programming model (FPM) for our UI5 application (`uimodule`). The reasons here are (1) that the FPM templates support TypeScript and (2) that the FPM allows us to use all the freestyle development features of UI5 (via custom pages or fragments), while still providing a solid structure and the option of adding Fiori elements features later on, such as [building blocks](https://sapui5.hana.ondemand.com/test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/buildingBlockOverview) or whole pages (e.g object pages). 
 
 ### 3. Add an SAP CAP server to the project
 
