@@ -285,7 +285,7 @@ export default class MainPage extends Opa5 {
 		this.waitFor({
 			controlType: "sap.m.GenericTile",
 			success: function (tiles: UI5Element[]) : void {
-				Opa5.assert.equal(tiles.length, 1, "Only on tile is visible");
+				Opa5.assert.equal(tiles.length, 1, "Only one tile is visible");
 				Opa5.assert.equal((tiles[0] as GenericTile).getHeader(), "Soda Zero", "The correct tile is visible");
 			},
 			errorMessage: "Did not find the tile"
@@ -325,7 +325,7 @@ npm run dev:server
 
 ### 13. Implement *WDI5* tests
 
-The initial project template already came with the boilerplate for *WDI5* tests. We have already used the basic configuration to start a simple test at the beginning of this chapter ([step 2](#2-run-basic-wdi5-test)).
+The initial project template already came with the boilerplate for *WDI5* tests. We have already used the basic configuration to start a simple test in the [previous chapter](/chapters/06-testing-current-project-setup#2-run-basic-wdi5-test).
 
 This is the current structure of the *WDI5* tests:
 
@@ -345,6 +345,7 @@ The `sample.test.ts` is initially a very basic test which does some simple loggi
 ```ts
 /* eslint-disable */
 import GenericTile from "sap/m/GenericTile";
+import SearchField from "sap/m/SearchField";
 import { wdi5 } from "wdio-ui5-service";
 
 describe("samples", () => {
@@ -362,7 +363,7 @@ describe("samples", () => {
 		};
 
 		const app = await browser.asControl(appLocator);
-		await expect(app).toBeDefined();
+		expect(app).toBeDefined();
 	});
 
 	it("should retrieve the search field and enter Zero", async () => {
@@ -373,10 +374,11 @@ describe("samples", () => {
 			},
 		};
 
-		const search = await browser.asControl(searchLocator);
-		await expect(search).toBeDefined();
-		await (browser.asControl(searchLocator) as any).focus().enterText("Zero");
-		await expect(search).toHaveValue("Zero");
+		const search = await browser.asControl<SearchField>(searchLocator);
+		expect(search).toBeDefined();
+		await search.enterText("Zero");
+		const value = await (search.getValue() as unknown as Promise<string>);
+		expect(value).toBe("Zero");
 	});
 
 	it("should display only the Soda Zero tile", async () => {
@@ -387,9 +389,10 @@ describe("samples", () => {
 			},
 		};
 
-		const tiles = await browser.allControls(tilesLocator) as GenericTile[];
-		await expect(tiles.length).toBe(1);
-		await expect(await tiles[0].getHeader()).toBe("Soda Zero");
+		const tiles = await browser.allControls<GenericTile>(tilesLocator);
+		expect(tiles.length).toBe(1);
+		const header = await (tiles[0].getHeader() as unknown as Promise<string>);
+		expect(header).toBe("Soda Zero");
 	});
 });
 ```
