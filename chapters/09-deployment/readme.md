@@ -6,42 +6,48 @@ By the end of this chapter we will have deployed our application to the Applicat
 
 - [1. Get an account on SAP BTP trial and configure SAP Cloud Identity Services](#1-get-an-account-on-sap-btp-trial-and-configure-sap-cloud-identity-services)<br>
 - [2. Provision an instance of SAP HANA Cloud](#2-provision-an-instance-of-sap-hana-cloud)<br>
-- [3. Entitle the Application Frontend Service](#3-entitle-the-application-frontend-service)<br>
-- [4. Subscribe to the Application Frontend Service](#4-subscribe-to-the-application-frontend-service)<br>
-- [5. Create role collections and assign them to your user](#5-create-role-collections-and-assign-them-to-your-user)<br>
-- [6. Edit the uimodule to use the CDN](#6-edit-the-uimodule-to-use-the-cdn)<br>
-- [7. Deploy the project](#7-deploy-the-project)<br>
-- [8. Access the deployed application](#8-access-the-deployed-application)<br>
+- [3. Subscribe to SAP Cloud Identity Services](#3-subscribe-to-sap-cloud-identity-services)<br>
+- [4. Entitle the Application Frontend Service](#4-entitle-the-application-frontend-service)<br>
+- [5. Subscribe to the Application Frontend Service](#5-subscribe-to-the-application-frontend-service)<br>
+- [6. Create role collections and assign them to your user](#6-create-role-collections-and-assign-them-to-your-user)<br>
+- [7. Edit the uimodule to use the CDN](#7-edit-the-uimodule-to-use-the-cdn)<br>
+- [8. Deploy the project](#8-deploy-the-project)<br>
+- [9. Access the deployed application](#9-access-the-deployed-application)<br>
 
 ### 1. Get an account on SAP BTP trial and configure SAP Cloud Identity Services
 
 The [Application Frontend Service](https://help.sap.com/docs/application-frontend-service/application-frontend-service/what-is-application-frontend-service) on SAP BTP allows us to deploy frontend applications in two ways: (1) via MTAs (Multi-Target Applications) and (2) via the [`afctl`](https://www.npmjs.com/package/@sap/appfront-cli) command line interface. This offers great flexibility, as we can deploy the whole project via an MTA once, and then hot-deploy the frontend only if we make changes along the way. It's also possible to exclusively use the `afctl` approach if we wanted to.
 Generally speaking, the Application Frontend Service provides a managed [approuter](https://www.npmjs.com/package/@sap/approuter), that allows us to handle user request and connect to other systems, without requiring a separate application.
 
-➡️ Follow these instructions on how to create an account on SAP BTP trial and configure the SAP Cloud Identity Services to use it with the Application Frontend Service: [https://help.sap.com/docs/application-frontend-service/application-frontend-service/setup-in-sap-btp-trial]() 
+➡️ Follow these instructions on how to create an account on SAP BTP trial and configure the SAP Cloud Identity Services to use it with the Application Frontend Service: <https://help.sap.com/docs/application-frontend-service/application-frontend-service/setup-in-sap-btp-trial> 
 
 ### 2. Provision an instance of SAP HANA Cloud
 
-➡️ Follow the instruction of the following tutorial (and other tutorials it is linking to): [https://developers.sap.com/tutorials/hana-cloud-deploying.html]()
+➡️ Follow the instruction of the following tutorial (and other tutorials it is linking to): <https://developers.sap.com/tutorials/hana-cloud-deploying.html>
 
-### 3. Entitle the Application Frontend Service
+### 3. Subscribe to SAP Cloud Identity Services
+
+➡️ Follow these instructions to subscribe to SAP Cloud Identity Services for your SAP BTP trial account, which is required for the Application Frontend service to work: <https://help.sap.com/docs/application-frontend-service/application-frontend-service/setup-in-sap-btp-trial>
+
+### 4. Entitle the Application Frontend Service
 
 ➡️ Go into the **Entitlements** section of your SAP BTP trial account and add the **Application Frontend Service** to your account. Add both the `trial` and `developer` plans:
 
 ![entitlements](entitlements.png)
 ![service plans](service-plans.png)
 
-### 4. Subscribe to the Application Frontend Service
+### 5. Subscribe to the Application Frontend Service
 
 ➡️ Go into the **Instances and Subscriptions** section of your SAP BTP trial account and create a new subscription to the **Application Frontend Service**. Select the `trial` plan:
 
+![create-subscription](create-subscription.png)
 ![subscription](subscription.png)
 
-### 5. Create role collections and assign them to your user
+### 6. Create role collections and assign them to your user
 
-➡️ Follow these instructions: [https://help.sap.com/docs/application-frontend-service/application-frontend-service/creating-role-collections-and-assigning-them-to-users]()
+➡️ Follow these instructions: <https://help.sap.com/docs/application-frontend-service/application-frontend-service/creating-role-collections-and-assigning-them-to-users>
 
-### 6. Edit the uimodule to use the CDN
+### 7. Edit the uimodule to use the CDN
 
 Our project is actually already configured to use the Application Frontend Service, as we configured the deployment target during the project generation in [chapter 01](/chapters/01-generating-a-full-stack-project/). This configuration is fully functional out-of-the-box. We only have to two small tweaks to make it work for our scenario: To make the build result of our application smaller, we want to use consume the UI5 libraries via the CDN, instead of bundling them into our application (our application is already quite big due to the 3D model).
 
@@ -56,16 +62,14 @@ We removed the `self-contained` option from the build script, as we don't want t
 ➡️ Replace the UI5 bootstrap url (`src`) in the `codejam.supermarket/uimodule/webapp/index.html` file with the following url:
 
 ```text
-https://ui5.sap.com/1.108/resources/sap-ui-core.js
+https://ui5.sap.com/1.148/resources/sap-ui-core.js
 ```
 
-Our application now consumes the UI5 libraries from the CDN, which will reduce the size of our application. We opted for an older long term support version of SAPUI5, as we had issues with newer versions at the time of writing (July 2025).
+Our application now consumes the UI5 libraries from the CDN, which will reduce the size of our application. We opted for an older long term support version of SAPUI5. Also see the [SAPUI5 version overview](https://ui5.sap.com/versionoverview.html) if you are interested.
 
-> Note: After deploying the application successfully, you might notice that the rating indicator doesn't work as expected. This is due to the newer `invoke()` method that we use in the `onCreateRating()` method not being available in this older version of SAPUI5.
+### 8. Deploy the project
 
-### 7. Deploy the project
-
-➡️ Make sure you have the Cloud Foundry CLI installed on your machine: [https://developers.sap.com/tutorials/cp-cf-download-cli.html]()
+➡️ Make sure you have the Cloud Foundry CLI installed on your machine: <https://developers.sap.com/tutorials/cp-cf-download-cli.html>
 
 ➡️ Login to your SAP BTP trial account (you can find your API endpoint on the overview page of your SAP BTP subaccount):
 
@@ -81,7 +85,7 @@ npm run build
 npm run deploy
 ```
 
-### 8. Access the deployed application
+### 9. Access the deployed application
 
 ➡️ Go to the **HTML5** > **Application Frontend** section in your SAP BTP trial account and open the `uimodule` application. You will have to log in with the account you created as part of [step 1](#get-an-account-on-sap-btp-trial-and-configure-sap-cloud-identity-services):
 

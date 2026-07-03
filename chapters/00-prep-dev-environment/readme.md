@@ -21,14 +21,10 @@ To be able to follow the instructions in this repository you need to fulfill ***
 > If you don't have access to the SAP Business Application Studio yet, check this tutorial on [how to get a free account on SAP BTP trial](https://developers.sap.com/tutorials/hcp-create-trial-account.html), from where you can [subscribe to the SAP Business Application Studio](https://developers.sap.com/tutorials/appstudio-onboarding.html).
 
 - **Option 2:** You can use your local machine and have the following tools installed:
-  - [Node.js](https://nodejs.org/en/) (version 20 or higher) including `npm`
+  - [Node.js](https://nodejs.org/en/) (version 24 or higher) including `npm`
   - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
   - Your favorite code editor (e.g. [Visual Studio Code](https://code.visualstudio.com/download))
   - You need privileges to install npm packages from the [npm registry](https://www.npmjs.com/)
-
-- **Option 3:** You can run this project in a devcontainer using the [provided configuration](/.devcontainer). You need to meet *one* of the following requirements:
-  - **Option 3a**: You have GitHub codespaces enabled for your GitHub organization and account.
-  - **Option 3b**: You have [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed on your machine and can use a [Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) to run the devcontainer locally.
 
 ### 2. Navigate into your preferred directory
 
@@ -42,13 +38,11 @@ To be able to follow the instructions in this repository you need to fulfill ***
 git clone https://github.com/SAP-samples/ui5-advanced-exercises-codejam
 ```
 
-The command created new directory for the cloned repository.
+The command created a new directory for the cloned repository.
 
 ### 4. Navigate into the newly created directory
 
-We want to navigate into the newly created `ui5-advanced-exercises-codejam/` directory.
-
-➡️ Execute the following command in the same terminal session:
+➡️ Execute the following command in the same terminal session to navigate into the newly created directory:
 
 ```bash
 cd ui5-advanced-exercises-codejam/

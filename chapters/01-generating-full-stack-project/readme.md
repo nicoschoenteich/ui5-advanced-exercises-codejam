@@ -68,7 +68,7 @@ To better understand the generated monorepo project setup, you can inspect the r
 
 <br>
 
-At this point you might be wondering why we enabled the SAP Fiori elements flexible programming model (FPM) for our UI5 application (`uimodule`). The reasons here are (1) that the FPM templates support TypeScript and (2) that the FPM allows us to use all the freestyle development features of UI5 (via custom pages or fragments), while still providing a solid structure and the option of adding Fiori elements features later on, such as [building blocks](https://sapui5.hana.ondemand.com/test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/buildingBlockOverview) or whole pages (e.g object page). 
+At this point you might be wondering why we enabled the SAP Fiori elements flexible programming model (FPM) for our UI5 application (`uimodule`). The reasons here are (1) that the FPM templates support TypeScript and (2) that the FPM allows us to use all the freestyle development features of UI5 (via custom pages or fragments), while still providing a solid structure and the option of adding Fiori elements features later on, such as [building blocks](https://sapui5.hana.ondemand.com/test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/buildingBlockOverview) or whole pages (e.g object pages). 
 
 ### 3. Add an SAP CAP server to the project
 
@@ -136,7 +136,7 @@ npm run dev:server
 
 The home page of the CAP server display all CAP service endpoints as well as the UI5 app(s) - notice the small UI5 label next to the webapp paths, which indicates that these are in fact UI5 apps served via the UI5 server, and not just static HTML files.
 
-As of now, our UI5 app is still empty and only displays the "Main" title. We will add content to the app in the following chapters.
+As of now, our UI5 app (`/uimodule/index.html`) is still empty and only displays the "Main" title. We will add content to the app in the following chapters.
 
 ![cds-server](./cds-server.png)
 ![ui5-app](./ui5-app.png)

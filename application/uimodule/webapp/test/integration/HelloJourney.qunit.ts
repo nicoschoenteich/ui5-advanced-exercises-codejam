@@ -5,7 +5,7 @@ const onTheMainPage = new MainPage();
 
 QUnit.module("Sample Journey");
 
-opaTest("Should search for Coca-Cola", function () {
+opaTest("Should search for Soda Zero", function () {
 	// Arrangements
 	onTheMainPage.iStartMyUIComponent({
 		componentConfig: {
@@ -18,7 +18,7 @@ opaTest("Should search for Coca-Cola", function () {
 	onTheMainPage.iEnterSearchText();
 
 	// Assertions
-	onTheMainPage.iShouldOnlySeeCocaCola();
+	onTheMainPage.iShouldOnlySeeSodaZero();
 
 	// Cleanup
 	onTheMainPage.iTeardownMyApp();

@@ -1,4 +1,4 @@
-specVersion: "3.1"
+specVersion: '3.1'
 metadata:
   name: uimodule
 type: application
@@ -25,13 +25,13 @@ server:
           overridesToOverride: true
         excludePatterns:
           - /Component-preload.js
-    - name: preview-middleware
+    - name: ui5-tooling-modules-middleware
+      afterMiddleware: ui5-tooling-transpile-middleware
+    - name: fiori-tools-preview
       afterMiddleware: compression
       configuration:
         test:
           - framework: Qunit
-    - name: ui5-tooling-modules-middleware
-      afterMiddleware: compression
 builder:
   customTasks:
     - name: ui5-tooling-transpile-task
@@ -40,14 +40,14 @@ builder:
         debug: true
         transformModulesToUI5:
           overridesToOverride: true
+    - name: ui5-tooling-modules-task
+      afterTask: ui5-tooling-transpile-task
     - name: ui5-task-zipper
       afterTask: generateVersionInfo
       configuration:
-        onlyZip: false
+        onlyZip: true
         relativePaths: false
         archiveName: uimodule-content
-    - name: ui5-tooling-modules-task
-      afterTask: ui5-tooling-transpile-task
 framework:
   libraries:
     - name: sap.m
@@ -56,4 +56,4 @@ framework:
     - name: sap.fe.templates
     - name: sap.ui.export
   name: SAPUI5
-  version: 1.136.2
+  version: 1.148.3

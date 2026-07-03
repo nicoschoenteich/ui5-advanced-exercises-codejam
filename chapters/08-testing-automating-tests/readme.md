@@ -57,6 +57,6 @@ You'll notice how the tests are being executed [headless](https://en.wikipedia.o
 
 As we are using the `ui5-test-runner`, code coverage can also be supported for testing. There's a quite good documentation available about enabling coverage reporting. 
 
-➡️ Just check out the following page: [https://github.com/ArnaudBuchholz/ui5-test-runner/blob/main/docs/coverage.md]().
+➡️ Just check out the following page: <https://github.com/ArnaudBuchholz/ui5-test-runner/blob/main/docs/coverage.md>.
 
 Continue to [Chapter 09 - Deployment](/chapters/09-deployment/)

@@ -23,19 +23,19 @@ export default class MainPage extends Opa5 {
 			id: "searchField",
 			viewName,
 			actions: new EnterText({
-				text: "Coca"
+				text: "Zero"
 			}),
 			errorMessage: "Did not find the search field on the Main view and could not enter text"
 		});
 	}
 
 	// Assertions
-	iShouldOnlySeeCocaCola() {
+	iShouldOnlySeeSodaZero() {
 		this.waitFor({
 			controlType: "sap.m.GenericTile",
 			success: function (tiles: UI5Element[]) : void {
-				Opa5.assert.equal(tiles.length, 1, "Only on tile is visible");
-				Opa5.assert.equal((tiles[0] as GenericTile).getHeader(), "Coca Cola", "The correct tile is visible");
+				Opa5.assert.equal(tiles.length, 1, "Only one tile is visible");
+				Opa5.assert.equal((tiles[0] as GenericTile).getHeader(), "Soda Zero", "The correct tile is visible");
 			},
 			errorMessage: "Did not find the tile"
 		});

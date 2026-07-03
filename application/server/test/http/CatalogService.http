@@ -6,4 +6,37 @@
 ### Books
 # @name Books_GET
 GET {{server}}/odata/v4/catalog/Books
-Authorization: Basic {{username}} {{password}}
+Authorization: Basic {{username}}:{{password}}
+
+
+### Books
+# @name Books_POST
+POST {{server}}/odata/v4/catalog/Books
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": 25801978,
+  "title": "title-25801978",
+  "author": "author-25801978"
+}
+
+
+### Books
+# @name Books_PATCH
+PATCH {{server}}/odata/v4/catalog/Books/25801978
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": 25801978,
+  "title": "title-25801978",
+  "author": "author-25801978"
+}
+
+
+### Books
+# @name Books_DELETE
+DELETE {{server}}/odata/v4/catalog/Books/25801978
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}

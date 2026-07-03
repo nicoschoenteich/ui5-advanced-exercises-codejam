@@ -51,7 +51,7 @@ export default class Main extends Controller {
 	// public onExit(): void {
 	//
 	//  }
-
+	//
 	public onSearchProducts(event: SearchField$LiveChangeEvent): void {
 		const filter = []
 		const query = event.getParameter("newValue")
@@ -83,7 +83,7 @@ export default class Main extends Controller {
 		});
 	}
 
-	public onFlyToProduct(event: Button$PressEvent): void {
+		public onFlyToProduct(event: Button$PressEvent): void {
 		const source = event.getSource()
 		const context = source.getBindingContext()
 		const position = context?.getProperty("position")
@@ -91,4 +91,6 @@ export default class Main extends Controller {
 		supermarket.expand({ stayExpanded: true })
 		supermarket.setCameraPosition(JSON.parse(position), { backToStart: true })
 	}
+
+
 }

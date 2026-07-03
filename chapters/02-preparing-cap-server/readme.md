@@ -14,7 +14,7 @@ By the end of this chapter we will have prepared our CAP server for the scenario
 
 Our CAP server by default was generated including a bookshop data model. We will replace it with a supermarket data model.
 
-➡️ Replace the content of the `codejam.supermarket/server/db/schema.cds` file with the following code:
+➡️ Create a new file `codejam.supermarket/server/db/schema.cds` file with the following code:
 
 ```cds
 namespace supermarket;
@@ -49,8 +49,10 @@ We will add sample data to our CAP server, so that we can test the UI5 app later
 **supermarket-Products.csv**
 ```csv
 ID,title,category_name,stock,position,image
-1,Coca Cola,Beverages,100,"[{""x"": 9.9,""y"": 1.99,""z"": -5.92},{""x"":9.27,""y"":0.73,""z"":-0.31}]",https://codejam-supermarket-image-server.cfapps.us10.hana.ondemand.com/1.png
-2,Cheerios,Cereal,500,"[{""x"":-1.76,""y"":1.72,""z"":-5.09},{""x"":-4.66,""y"":2.47,""z"":-0.08}]",https://codejam-supermarket-image-server.cfapps.us10.hana.ondemand.com/2.png
+1,Soda,Beverages,100,"[{""x"": 9.9,""y"": 1.99,""z"": -5.92},{""x"":9.27,""y"":0.73,""z"":-0.31}]",https://codejam-supermarket-image-server.cfapps.us10.hana.ondemand.com/1.png
+2,Soda Zero,Beverages,100,"[{""x"": 9.9,""y"": 1.99,""z"": -5.92},{""x"":9.27,""y"":0.73,""z"":-0.31}]",https://codejam-supermarket-image-server.cfapps.us10.hana.ondemand.com/2.png
+3,SuperTasty,Cereal,500,"[{""x"":-1.76,""y"":1.72,""z"":-5.09},{""x"":-4.66,""y"":2.47,""z"":-0.08}]",https://codejam-supermarket-image-server.cfapps.us10.hana.ondemand.com/3.png
+4,ExtraTasty,Cereal,500,"[{""x"":-1.76,""y"":1.72,""z"":-5.09},{""x"":-4.66,""y"":2.47,""z"":-0.08}]",https://codejam-supermarket-image-server.cfapps.us10.hana.ondemand.com/4.png
 ```
 
 **supermarket-Categories.csv**
@@ -93,18 +95,26 @@ service CatalogService {
 ➡️ Create a new file `codejam.supermarket/server/srv/cat-service.js` and add the following code:
 
 ```javascript
-module.exports = function CatalogService() {
-	this.on("getAvgRating", async () => {
-		const ratings = await SELECT("rating").from("Ratings")
-		const avg = ratings.map(r => r.rating).reduce((a,b) => a + b)/ratings.length
-		return avg.toFixed(2)
-	})
+import cds from "@sap/cds"
 
-	this.on("createRating", async ({ data: { rating } }) => {
-		const result = await INSERT({ rating }).into("Ratings")
-		const entries = [...result]
-		return await SELECT.one.from("Ratings").where({ ID: entries[0].ID })
-	})
+export class CatalogService extends cds.ApplicationService {
+	async init() {
+		this.on("getAvgRating", async () => {
+			const ratings = await SELECT("rating").from("Ratings")
+			const avg = ratings.map(r => r.rating).reduce((a, b) => a + b) / ratings.length
+			return avg.toFixed(2)
+		})
+
+		this.on("createRating", async ({ data: { rating } }) => {
+			const result = await INSERT({ rating }).into("Ratings")
+			const entries = [...result]
+			return await SELECT.one.from("Ratings").where({
+				ID: entries[0].ID
+			})
+		})
+
+		await super.init();
+	}
 }
 ```
 
