@@ -62,12 +62,10 @@ We removed the `self-contained` option from the build script, as we don't want t
 ➡️ Replace the UI5 bootstrap url (`src`) in the `codejam.supermarket/uimodule/webapp/index.html` file with the following url:
 
 ```text
-https://ui5.sap.com/1.108/resources/sap-ui-core.js
+https://ui5.sap.com/1.148/resources/sap-ui-core.js
 ```
 
-Our application now consumes the UI5 libraries from the CDN, which will reduce the size of our application. We opted for an older long term support version of SAPUI5, as we had issues with newer versions at the time of writing (July 2025).
-
-> Note: After deploying the application successfully, you might notice that the rating indicator doesn't work as expected. This is due to the newer `invoke()` method that we use in the `onCreateRating()` method not being available in this older version of SAPUI5.
+Our application now consumes the UI5 libraries from the CDN, which will reduce the size of our application. We opted for an older long term support version of SAPUI5. Also see the [SAPUI5 version overview](https://ui5.sap.com/versionoverview.html) if you are interested.
 
 ### 8. Deploy the project
 
