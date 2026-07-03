@@ -21,7 +21,7 @@ By the end of this chapter, we will know how to recreate and execute a holistic 
 
 ### 1. Add `testsuite.qunit.html` (test suite)
 
-In case we need a bit more control over the generated files, we can also create the boilerplate files manually. This allows us to specify the *QUnit* or *Sinon* version in the test suite as well as to maintain a list of tests to be executed. The tests are triggered by the [UI5 test starter](https://sdk.openui5.org/topic/032be2cb2e1d4115af20862673bedcdb). The concept of UI5 test suite is explained here in the UI5 documentation: [https://sdk.openui5.org/#/topic/22f50c0f0b104bf3ba84620880793d3f]()
+In case we need a bit more control over the generated files, we can also create the boilerplate files manually. This allows us to specify the *QUnit* or *Sinon* version in the test suite as well as to maintain a list of tests to be executed. The tests are triggered by the [UI5 test starter](https://sdk.openui5.org/topic/032be2cb2e1d4115af20862673bedcdb). The concept of UI5 test suite is explained here in the UI5 documentation: <https://sdk.openui5.org/#/topic/22f50c0f0b104bf3ba84620880793d3f>
 
 In this and the subsequent steps we will create the following file structure, which is essentially the boilerplate required to run *QUnit* and *OPA* tests - the so-called *test suite*:
 
