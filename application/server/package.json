@@ -1,22 +1,15 @@
 {
     "name": "server",
     "version": "1.0.0",
-    "description": "A simple CAP project.",
-    "repository": "<Add your repository here>",
-    "license": "UNLICENSED",
-    "private": true,
+    "type": "module",
     "dependencies": {
-        "@sap/cds": "^9",
-        "@sap/xssec": "^4",
-        "@cap-js/hana": "^2"
-    },
-    "engines": {
-        "node": ">=20"
+        "@cap-js/hana": "^3",
+        "@sap/cds": "^10",
+        "@sap/xssec": "^4"
     },
     "devDependencies": {
-        "@cap-js/cds-types": "^0",
-        "@cap-js/sqlite": "^2",
-        "@sap/cds-dk": "^9",
+        "@cap-js/sqlite": "^3",
+        "@sap/cds-dk": "^10",
         "cds-plugin-ui5": "latest",
         "uimodule": "../uimodule"
     },
@@ -24,5 +17,6 @@
         "start": "cds-serve",
         "dev": "cds watch",
         "build": "cds build --production"
-    }
+    },
+    "private": true
 }

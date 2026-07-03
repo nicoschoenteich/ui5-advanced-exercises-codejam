@@ -1,5 +1,6 @@
 /* eslint-disable */
 import GenericTile from "sap/m/GenericTile";
+import SearchField from "sap/m/SearchField";
 import { wdi5 } from "wdio-ui5-service";
 
 describe("samples", () => {
@@ -17,10 +18,10 @@ describe("samples", () => {
 		};
 
 		const app = await browser.asControl(appLocator);
-		await expect(app).toBeDefined();
+		expect(app).toBeDefined();
 	});
 
-	it("should retrieve the search field and enter Coca", async () => {
+	it("should retrieve the search field and enter Zero", async () => {
 		const searchLocator = {
 			selector: {
 				id: "searchField",
@@ -28,13 +29,14 @@ describe("samples", () => {
 			},
 		};
 
-		const search = await browser.asControl(searchLocator);
-		await expect(search).toBeDefined();
-		await (browser.asControl(searchLocator) as any).focus().enterText("Coca");
-		await expect(search).toHaveValue("Coca");
+		const search = await browser.asControl<SearchField>(searchLocator);
+		expect(search).toBeDefined();
+		await search.enterText("Zero");
+		const value = await (search.getValue() as unknown as Promise<string>);
+		expect(value).toBe("Zero");
 	});
 
-	it("should display only the Coca Cola tile", async () => {
+	it("should display only the Soda Zero tile", async () => {
 		const tilesLocator = {
 			selector: {
 				controlType: "sap.m.GenericTile",
@@ -42,8 +44,9 @@ describe("samples", () => {
 			},
 		};
 
-		const tiles = await browser.allControls(tilesLocator) as GenericTile[];
-		await expect(tiles.length).toBe(1);
-		await expect(await tiles[0].getHeader()).toBe("Coca Cola");
+		const tiles = await browser.allControls<GenericTile>(tilesLocator);
+		expect(tiles.length).toBe(1);
+		const header = await (tiles[0].getHeader() as unknown as Promise<string>);
+		expect(header).toBe("Soda Zero");
 	});
 });
