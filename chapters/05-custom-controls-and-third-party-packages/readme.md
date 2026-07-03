@@ -42,7 +42,7 @@ We installed the [`ui5-tooling-modules`](https://www.npmjs.com/package/ui5-tooli
 
 We also installed the (non-development) dependencies [`three`](https://www.npmjs.com/package/three) and [`gsap`](https://www.npmjs.com/package/gsap), which are required for the custom control we will build. Three.js is a popular JavaScript library for creating 3D graphics, and `gsap` is a powerful animation library that we will use to animate the 3D model of the supermarket.
 
-:information_source: With the command line option `-rte` the tooling extension `ui5-tooling-modules` adds its necessary configuration into the `ui5.yaml` automatically. Step 3 can be skipped in this case - just check that the configuration is present.
+:information_source: With the command line option `-rte` the tooling extension `ui5-tooling-modules` adds its necessary configuration into the `ui5.yaml` automatically. **Step 3 can be skipped in this case** - just check that the configuration is present.
 
 ### 3. Add configuration to `ui5.yaml`
 
