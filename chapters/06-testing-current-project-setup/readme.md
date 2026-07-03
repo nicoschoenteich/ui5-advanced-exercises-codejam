@@ -40,16 +40,6 @@ This will launch the SAP Fiori tools (`fiori run ...`) which provides built-in b
 
 You might have noticed we started the `uimodule` decoupled from the backend server for the first time. We can do that in this case as the unit tests don't rely on the UI5 app to be fully functional and operating against the backend server.
 
->⚠ Although we generated a TypeScript project, the generated QUnit test is currently using JavaScript. Feel free to change the file extension to `.ts` and remove the UI5 AMD-like code (`sap.ui.define`). Now the code looks like this:
->
->```ts
->QUnit.module("First Test", {});
->
->QUnit.test("It's just true", (assert) => {
->	assert.strictEqual(true, true);
->});
->```
-
 ![first qunit test](first-qunit-test.png)
 
 ### 2. Run basic WDI5 test
