@@ -21,7 +21,7 @@ describe("samples", () => {
 		expect(app).toBeDefined();
 	});
 
-	it("should retrieve the search field and enter Zero", async () => {
+	it("should retrieve the search field and enter no sugar", async () => {
 		const searchLocator = {
 			selector: {
 				id: "searchField",
@@ -31,12 +31,12 @@ describe("samples", () => {
 
 		const search = await browser.asControl<SearchField>(searchLocator);
 		expect(search).toBeDefined();
-		await search.enterText("Zero");
+		await search.enterText("no sugar");
 		const value = await (search.getValue() as unknown as Promise<string>);
-		expect(value).toBe("Zero");
+		expect(value).toBe("no sugar");
 	});
 
-	it("should display only the Soda Zero tile", async () => {
+	it("should display only the Soda no sugar tile", async () => {
 		const tilesLocator = {
 			selector: {
 				controlType: "sap.m.GenericTile",
@@ -47,6 +47,6 @@ describe("samples", () => {
 		const tiles = await browser.allControls<GenericTile>(tilesLocator);
 		expect(tiles.length).toBe(1);
 		const header = await (tiles[0].getHeader() as unknown as Promise<string>);
-		expect(header).toBe("Soda Zero");
+		expect(header).toBe("Soda no sugar");
 	});
 });
