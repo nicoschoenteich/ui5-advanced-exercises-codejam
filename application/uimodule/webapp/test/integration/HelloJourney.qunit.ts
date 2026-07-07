@@ -18,7 +18,7 @@ opaTest("Should search for Soda no sugar", function () {
 	onTheMainPage.iEnterSearchText();
 
 	// Assertions
-	onTheMainPage.iShouldOnlySeeSodano sugar();
+	onTheMainPage.iShouldOnlySeeSodaNoSugar();
 
 	// Cleanup
 	onTheMainPage.iTeardownMyApp();

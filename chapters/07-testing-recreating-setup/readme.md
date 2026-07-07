@@ -232,7 +232,7 @@ opaTest("Should search for Soda no sugar", function () {
 	onTheMainPage.iEnterSearchText();
 
 	// Assertions
-	onTheMainPage.iShouldOnlySeeSodano sugar();
+	onTheMainPage.iShouldOnlySeeSodaNoSugar();
 
 	// Cleanup
 	onTheMainPage.iTeardownMyApp();
@@ -281,7 +281,7 @@ export default class MainPage extends Opa5 {
 	}
 
 	// Assertions
-	iShouldOnlySeeSodano sugar() {
+	iShouldOnlySeeSodaNoSugar() {
 		this.waitFor({
 			controlType: "sap.m.GenericTile",
 			success: function (tiles: UI5Element[]) : void {
