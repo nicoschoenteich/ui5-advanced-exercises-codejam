@@ -50,7 +50,7 @@ The OData action and its parameters are now bound to the rating indicator, but s
 ➡️ Add the following method to the `codejam.supermarket/uimodule/webapp/ext/main/Main.controller.ts` file:
 
 ```typescript
-	public async onCreateRating(event: RatingIndicator$ChangeEvent) {
+	public onCreateRating(event: RatingIndicator$ChangeEvent) {
 		const ratingIndicator = event.getSource();
 		const operation = ratingIndicator.getObjectBinding() as ODataContextBinding;
 		operation.execute().then(() => {
@@ -123,7 +123,7 @@ The application now includes a rating indicator. Feel free to test it and see th
 
 > The solution is to first use `label.getBinding("text")` to get the composite binding of the label, then use `compositeBinding.getBindings()` to get all property bindings of the composite binding, and finally call `refresh()` on the first binding of the array, which is the `/getAvgRating` function binding. This way, only the average rating is refreshed without affecting the product images. It's not rocket science, but quite the task to work out yourself.
 > ```typescript
->   public async onCreateRating(event: RatingIndicator$ChangeEvent) {
+>   public onCreateRating(event: RatingIndicator$ChangeEvent) {
 >       const ratingIndicator = event.getSource();
 >       const operation = ratingIndicator.getObjectBinding() as ODataContextBinding;
 >       operation.invoke().then(() => {
