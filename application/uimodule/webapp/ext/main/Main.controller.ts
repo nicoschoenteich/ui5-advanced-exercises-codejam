@@ -68,7 +68,7 @@ export default class Main extends Controller {
 		binding.filter(filter)
 	}
 
-	public async onCreateRating(event: RatingIndicator$ChangeEvent) {
+	public onCreateRating(event: RatingIndicator$ChangeEvent) {
 		const ratingIndicator = event.getSource();
 		const operation = ratingIndicator.getObjectBinding() as ODataContextBinding;
 		operation.invoke().then(() => {
@@ -83,7 +83,7 @@ export default class Main extends Controller {
 		});
 	}
 
-		public onFlyToProduct(event: Button$PressEvent): void {
+	public onFlyToProduct(event: Button$PressEvent): void {
 		const source = event.getSource()
 		const context = source.getBindingContext()
 		const position = context?.getProperty("position")

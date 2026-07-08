@@ -219,7 +219,7 @@ const onTheMainPage = new MainPage();
 
 QUnit.module("Sample Journey");
 
-opaTest("Should search for Soda Zero", function () {
+opaTest("Should search for Soda no sugar", function () {
 	// Arrangements
 	onTheMainPage.iStartMyUIComponent({
 		componentConfig: {
@@ -232,14 +232,14 @@ opaTest("Should search for Soda Zero", function () {
 	onTheMainPage.iEnterSearchText();
 
 	// Assertions
-	onTheMainPage.iShouldOnlySeeSodaZero();
+	onTheMainPage.iShouldOnlySeeSodaNoSugar();
 
 	// Cleanup
 	onTheMainPage.iTeardownMyApp();
 });
 ```
 
-In this journey we open the application, search for "Zero" and check that a single tile is visible with "Soda Zero" as title.
+In this journey we open the application, search for "no sugar" and check that a single tile is visible with "Soda no sugar" as title.
 Typically, the actions and assertions calls itself are outsourced to so-called page objects. Page objects are related to a single view - in our case to the `Main` view.
 
 ### 10. Add `MainPage.ts` (page object)
@@ -274,19 +274,19 @@ export default class MainPage extends Opa5 {
 			id: "searchField",
 			viewName,
 			actions: new EnterText({
-				text: "Zero"
+				text: "no sugar"
 			}),
 			errorMessage: "Did not find the search field on the Main view and could not enter text"
 		});
 	}
 
 	// Assertions
-	iShouldOnlySeeSodaZero() {
+	iShouldOnlySeeSodaNoSugar() {
 		this.waitFor({
 			controlType: "sap.m.GenericTile",
 			success: function (tiles: UI5Element[]) : void {
 				Opa5.assert.equal(tiles.length, 1, "Only one tile is visible");
-				Opa5.assert.equal((tiles[0] as GenericTile).getHeader(), "Soda Zero", "The correct tile is visible");
+				Opa5.assert.equal((tiles[0] as GenericTile).getHeader(), "Soda no sugar", "The correct tile is visible");
 			},
 			errorMessage: "Did not find the tile"
 		});
@@ -366,7 +366,7 @@ describe("samples", () => {
 		expect(app).toBeDefined();
 	});
 
-	it("should retrieve the search field and enter Zero", async () => {
+	it("should retrieve the search field and enter no sugar", async () => {
 		const searchLocator = {
 			selector: {
 				id: "searchField",
@@ -376,12 +376,12 @@ describe("samples", () => {
 
 		const search = await browser.asControl<SearchField>(searchLocator);
 		expect(search).toBeDefined();
-		await search.enterText("Zero");
+		await search.enterText("no sugar");
 		const value = await (search.getValue() as unknown as Promise<string>);
-		expect(value).toBe("Zero");
+		expect(value).toBe("no sugar");
 	});
 
-	it("should display only the Soda Zero tile", async () => {
+	it("should display only the Soda no sugar tile", async () => {
 		const tilesLocator = {
 			selector: {
 				controlType: "sap.m.GenericTile",
@@ -392,7 +392,7 @@ describe("samples", () => {
 		const tiles = await browser.allControls<GenericTile>(tilesLocator);
 		expect(tiles.length).toBe(1);
 		const header = await (tiles[0].getHeader() as unknown as Promise<string>);
-		expect(header).toBe("Soda Zero");
+		expect(header).toBe("Soda no sugar");
 	});
 });
 ```

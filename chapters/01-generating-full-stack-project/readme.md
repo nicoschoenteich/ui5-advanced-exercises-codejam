@@ -49,7 +49,6 @@ yo easy-ui5 project project
 |What entity should be used for the new page?|`Products`|
 |What type of page do you want to add?|`Custom Page`|
 |How do you want to name your custom page view?|`Main`|
-|*Accept to overwrite existing files.*||
 
 We used the easy-ui5 project generator to generate a TypeScript-based UI5 project. The project generator is a sub-generator of easy-ui5, and itself contains (sub-)sub-generators, such as `project` (hence `project project` in the command). This nested structure of generators, together with the monorepo approach of the used templates, allows for very flexible and modular scaffolding of applications and features. These capabilities are by the way also the major difference between the project generator and the [`ts-app` generator](https://github.com/ui5-community/generator-ui5-ts-app), which generates simpler applications without the monorepo setup and doesn't include (sub-)sub-generators to add more features on the fly.
 
@@ -86,7 +85,7 @@ yo easy-ui5 project cap
 |How do you want to name your new SAP CAP server module?|`server`|
 |Which CAP capabilities do you want to add?|**select** `hana`, **unselect** `postgres`|
 |Do you want to add the SAP CAP service as the default model to your uimodule?|`Yes`|
-|*Accept to install packages and overwrite existing files.*||
+|*Accept to overwrite existing files.*||
 
 We ran the `cap` (sub-)sub-generator to add a CAP server to our project, which makes sure it is well-integrated into the monorepo, for example by sharing dependencies at root level. The server will serve (pun intended) as the backend for our UI5 app - conveniently, the generator even added the CAP service as a data source and default data model. By default, it comes with a tiny sample service, which you are free to inspect of course (directories `codejam.supermarket/server/db/` and `codejam.supermarket/server/srv/`).
 
