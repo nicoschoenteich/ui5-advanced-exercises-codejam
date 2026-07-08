@@ -7,11 +7,12 @@ import {
 	WebGLRenderer,
 	AmbientLight
 } from "three"
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import gsap from "gsap"
 import BusyIndicator from "sap/m/BusyIndicator"
 import Button from "sap/m/Button"
+import FlexBox from "sap/m/FlexBox"
 
 /**
  * @namespace uimodule.ext.control
@@ -42,8 +43,8 @@ export default class Supermarket extends Control {
 	private threeRenderer: WebGLRenderer
 	private controls: OrbitControls
 	private animationSpeed = 3000
-	private height: Number
-	private width: Number
+	private height: number
+	private width: number
 
 	init(): void {
 		this.setAggregation("_busyIndicator", new BusyIndicator({
@@ -63,7 +64,7 @@ export default class Supermarket extends Control {
 		this.width = width
 
 		this.threeRenderer = new WebGLRenderer({
-			canvas: canvas,
+			canvas: canvas
 		})
 		this.threeRenderer.setSize(width, height)
 
@@ -94,28 +95,28 @@ export default class Supermarket extends Control {
 		requestAnimationFrame(this.animate.bind(this))
 	}
 
-	public setCameraPosition(coordinates: Array<Object>, { backToStart = false }: { backToStart?: Boolean }): void {
+	public setCameraPosition(coordinates: Array<object>, { backToStart = false }: { backToStart?: boolean }): void {
 		if (backToStart) {
 			this.camera.position.set(18.88, 2.44, -5.2)
 		}
 		gsap.to(this.camera.position, { ...coordinates[0], duration: this.animationSpeed / 1000 })
 		for (let i = 1; i < coordinates.length; i++) {
+			// eslint-disable-next-line @sap-ux/fiori-tools/sap-timeout-usage
 			window.setTimeout(() => {
 				gsap.to(this.camera.position, { ...coordinates[i], duration: this.animationSpeed / 1000 })
 			}, this.animationSpeed)
 		}
 	}
 
-	public expand({ stayExpanded = false }: { stayExpanded?: Boolean }): void {
+	public expand({ stayExpanded = false }: { stayExpanded?: boolean }): void {
 		const expand = this.getAggregation("_expand") as Button
 		const growFactor = this.getGrowFactor()
 		const icon = expand.getIcon()
 		const factor = icon === "sap-icon://full-screen" || stayExpanded ? growFactor : 1
-		// @ts-ignore
-		this.getParent().getDomRef().style.height = `${this.height * factor}px`
-		// @ts-ignore
-		this.getParent().getDomRef().style.width = `${this.width * factor}px`
-		// @ts-ignore
+		const parent = this.getParent() as FlexBox
+		const parentDOMNode = parent.getDomRef() as HTMLDivElement
+		parentDOMNode.style.height = `${this.height * factor}px`
+		parentDOMNode.style.width = `${this.width * factor}px`
 		this.threeRenderer.setSize(this.width * factor, this.height * factor)
 		expand.setIcon(`sap-icon://${factor === growFactor ? "exit-" : ""}full-screen`)
 	}
