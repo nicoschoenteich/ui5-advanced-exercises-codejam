@@ -47,7 +47,7 @@ The rating indicator calls the `onCreateRating()` method on the change event, wh
 
 The OData action and its parameters are now bound to the rating indicator, but still needs to be manually invoked via the controller.
 
-➡️ Add the following method to the `codejam.supermarket/uimodule/webapp/ext/main/Main.controller.ts` file:
+➡️ Add the following method to the `codejam.supermarket/uimodule/webapp/ext/view/Main.controller.ts` file:
 
 ```typescript
 	public onCreateRating(event: RatingIndicator$ChangeEvent) {
@@ -80,7 +80,7 @@ This `onCreateRating()` method is called on the change event of the rating indic
 
 Speaking of issues, debugging is an important part of any development process. Maybe you have noticed that the creating a new rating makes the product images disappear for a fraction of a second. This is caused by calling the `refresh()` method on the whole model, including the images.
 
-➡️ Your task is now to debug this issue and find an alternative way of refreshing the average rating (`/getAvgRating()` binding of the `avgRating` label) without refreshing the whole model. Open the developer tools of your browser, open the "Sources" tab, and set a break point in the `uimodule/ext/main/Main.controller.ts` file after the promise gets resolved. Now submit a new rating and notice how the execution stops at the break point. Inspect the application at that point in time.
+➡️ Your task is now to debug this issue and find an alternative way of refreshing the average rating (`/getAvgRating()` binding of the `avgRating` label) without refreshing the whole model. Open the developer tools of your browser, open the "Sources" tab, and set a break point in the `uimodule/ext/view/Main.controller.ts` file after the promise gets resolved. Now submit a new rating and notice how the execution stops at the break point. Inspect the application at that point in time.
 
 ![breakpoint](./breakpoint.png)
 
@@ -129,15 +129,22 @@ The application now includes a rating indicator. Feel free to test it and see th
 >       operation.invoke().then(() => {
 >           console.log("logging the result...", operation.getBoundContext().getObject());
 >           MessageToast.show("Rating submitted.");
->           const label = this.getView()?.byId("avgRating") as Label
->           const compositeBindings = label.getBinding("text") as CompositeBinding
->           compositeBindings.getBindings()[0].refresh()
+>           const label = this.getView()?.byId("avgRating") as Label;
+>           const compositeBindings = label.getBinding("text") as CompositeBinding;
+>           (compositeBindings.getBindings()[0] as ODataPropertyBinding).refresh();
 >           ratingIndicator.setEnabled(false);
 >       }).catch((error: Error) => {
 >           MessageToast.show(error.message);
 >       });
 >   }
 >```
+>
+> ➡️ Also make sure to add the following imports to the top of the same file:
+> ```typescript
+> import Label from "sap/m/Label";
+> import CompositeBinding from "sap/ui/model/CompositeBinding";
+> import ODataPropertyBinding from "sap/ui/model/odata/v4/ODataPropertyBinding";
+> ```
 
 </details>
 

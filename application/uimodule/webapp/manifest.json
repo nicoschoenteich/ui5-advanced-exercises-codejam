@@ -99,7 +99,7 @@
             "settings": {
               "navigation": {},
               "contextPath": "/Products",
-              "viewName": "uimodule.ext.main.Main"
+              "viewName": "uimodule.ext.view.Main"
             }
           }
         }

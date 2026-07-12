@@ -21,7 +21,7 @@ By the end of this chapter, we will know how to recreate and execute a holistic 
 
 ### 1. Add `testsuite.qunit.html` (test suite)
 
-In case we need a bit more control over the generated files, we can also create the boilerplate files manually. This allows us to specify the *QUnit* or *Sinon* version in the test suite as well as to maintain a list of tests to be executed. The tests are triggered by the [UI5 test starter](https://sdk.openui5.org/topic/032be2cb2e1d4115af20862673bedcdb). The concept of UI5 test suite is explained here in the UI5 documentation: <https://sdk.openui5.org/#/topic/22f50c0f0b104bf3ba84620880793d3f>
+In case we need a bit more control over the generated files, we can also create the boilerplate files manually. This allows us to specify the *QUnit* or *Sinon* version in the test suite as well as to maintain a list of tests to be executed. The tests are triggered by the [UI5 test starter](https://ui5.sap.com/topic/032be2cb2e1d4115af20862673bedcdb). The concept of UI5 test suite is explained here in the UI5 documentation: <https://ui5.sap.com/#/topic/22f50c0f0b104bf3ba84620880793d3f>
 
 In this and the subsequent steps we will create the following file structure, which is essentially the boilerplate required to run *QUnit* and *OPA* tests - the so-called *test suite*:
 
@@ -145,7 +145,7 @@ The `Main.qunit.ts` file now defines *QUnit* modules and tests. A very basic che
 ➡️ Create a new file `codejam.supermarket/uimodule/webapp/test/unit/controller/Main.qunit.ts` with the following content:
 
 ```ts
-import Main from "uimodule/ext/main/Main.controller";
+import Main from "uimodule/ext/view/Main.controller";
 
 QUnit.module("Sample Main controller test");
 
@@ -179,8 +179,8 @@ npm start
 
 ➡️ Open the test suite at [http://localhost:8080/test/testsuite.qunit.html]() to run the *QUnit* tests. You can run all tests at once by pressing **Run All** or click on the individual *QUnit* tests to execute.
 
-![Qunit runn all](qunit-run-all.png)
-![Qunit test results](qunit-results.png)
+![QUnit run all](qunit-run-all.png)
+![QUnit test results](qunit-results.png)
 
 ### 8. Add `opaTests.qunit.ts` (list of OPA journeys)
 
@@ -256,7 +256,7 @@ import GenericTile from "sap/m/GenericTile";
 import UI5Element from "sap/ui/core/Element";
 
 
-const viewName = "uimodule.ext.main.Main";
+const viewName = "uimodule.ext.view.Main";
 
 export default class MainPage extends Opa5 {
 	// Actions
@@ -317,7 +317,7 @@ We can now run our *OPA* (integration) tests (together with the unit tests from 
 npm run dev:server
 ```
 
-➡️ Open the test suite at [http://localhost:4004/uimodule/webapp/test/testsuite.qunit.html]() to run the *OPA* (integration) and unit tests. You can run all tests at once by pressing **Run All** or click on the individual tests to execute.
+➡️ Open the test suite at [http://localhost:4004/uimodule/test/testsuite.qunit.html]() to run the *OPA* (integration) and unit tests. You can run all tests at once by pressing **Run All** or click on the individual tests to execute.
 
 ![cds server](cds-server.png)
 ![Qunit runn all](qunit-run-all2.png)
@@ -358,7 +358,7 @@ describe("samples", () => {
 		const appLocator = {
 			selector: {
 				controlType: "sap.m.Page",
-				viewName: "uimodule.ext.main.Main",
+				viewName: "uimodule.ext.view.Main",
 			},
 		};
 
@@ -370,7 +370,7 @@ describe("samples", () => {
 		const searchLocator = {
 			selector: {
 				id: "searchField",
-				viewName: "uimodule.ext.main.Main",
+				viewName: "uimodule.ext.view.Main",
 			},
 		};
 
@@ -385,7 +385,7 @@ describe("samples", () => {
 		const tilesLocator = {
 			selector: {
 				controlType: "sap.m.GenericTile",
-				viewName: "uimodule.ext.main.Main",
+				viewName: "uimodule.ext.view.Main",
 			},
 		};
 
@@ -412,8 +412,10 @@ npm run dev:server
 
 ```sh
 # make sure you are in the uimodule/ directory
-npm run wdi5
+npm run wdi5 -- --baseUrl http://localhost:4004/uimodule/index.html
 ```
+
+We overwrite the baseUrl from the `codejam.supermarket/uimodule/webapp/test/e2e/wdio.conf.ts` which uses the standard port and path from the UI5 dev server to the port and path of the CAP server which we started above.
 
 You will notice how the *WDI5* tests are executed in the browser, similar to the *OPA* tests. The test results are displayed in the terminal.
 

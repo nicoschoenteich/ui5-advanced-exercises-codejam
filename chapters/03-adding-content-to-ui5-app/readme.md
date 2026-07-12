@@ -19,7 +19,7 @@ We want to build an app that allow users to browse and search a list of products
 	xmlns:core="sap.ui.core"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
-	controllerName="uimodule.ext.main.Main">
+	controllerName="uimodule.ext.view.Main">
 	<Page id="Main" showHeader="false" class="sapUiContentPadding">
 		<VBox justifyContent="SpaceBetween" width="100%" height="100%">
 			<VBox alignItems="Center">
@@ -59,25 +59,32 @@ We want to build an app that allow users to browse and search a list of products
 
 We added basic UI5 controls to the main view custom page. As we call these exercises "advanced", nothing here should really surprise you.
 
+> If you have the [UI5 Language Assistant](https://marketplace.visualstudio.com/items?itemName=SAPOSS.vscode-ui5-language-assistant) installed, you will notice that some of the controls above are flagged with errors. The UI5 Language Assistant is a VS Code extension that provides code completion, validation, and quick navigation for UI5 XML views and fragments - it's highly recommended for a smoother XML view editing experience.
+>
+> The errors you see are related to the `flexEnabled` property in the `manifest.json`. When `flexEnabled` is set to `true` (as it is in our generated project), SAPUI5 flexibility (adaptation/personalization) is enabled, and every control that could be adapted needs a stable ID so that changes can be reliably attached to it. Controls without an explicit `id` therefore get flagged. You have two options to resolve this:
+>
+> - Set `"flexEnabled": false` in the `sap.ui5` section of the `manifest.json` if you don't need flexibility features, or
+> - Add an `id` attribute to each of the flagged controls (which is good practice anyway).
+
 ### 2. Add TypeScript controller code for the search feature
 
-➡️ Add the following method to the `codejam.supermarket/uimodule/webapp/ext/main/Main.controller.ts` file:
+➡️ Add the following method to the `codejam.supermarket/uimodule/webapp/ext/view/Main.controller.ts` file:
 
 ```typescript
 	public onSearchProducts(event: SearchField$LiveChangeEvent): void {
-		const filter = []
-		const query = event.getParameter("newValue")
+		const filter = [];
+		const query = event.getParameter("newValue");
 		if (query) {
 			filter.push(new Filter({
 				path: "title",
 				operator: FilterOperator.Contains,
 				value1: query,
 				caseSensitive: false
-			}))
+			}));
 		}
-		const list = this.getView()?.byId("products") as HBox
-		const binding = list.getBinding("items") as ODataListBinding
-		binding.filter(filter)
+		const list = this.getView()?.byId("products") as HBox;
+		const binding = list.getBinding("items") as ODataListBinding;
+		binding.filter(filter);
 	}
 ```
 
