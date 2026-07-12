@@ -1,4 +1,4 @@
-import Main from "uimodule/ext/main/Main.controller";
+import Main from "uimodule/ext/view/Main.controller";
 
 QUnit.module("Sample Main controller test");
 

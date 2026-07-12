@@ -5,7 +5,7 @@ import GenericTile from "sap/m/GenericTile";
 import UI5Element from "sap/ui/core/Element";
 
 
-const viewName = "uimodule.ext.main.Main";
+const viewName = "uimodule.ext.view.Main";
 
 export default class MainPage extends Opa5 {
 	// Actions

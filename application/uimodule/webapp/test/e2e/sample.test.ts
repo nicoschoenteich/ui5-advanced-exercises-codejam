@@ -13,7 +13,7 @@ describe("samples", () => {
 		const appLocator = {
 			selector: {
 				controlType: "sap.m.Page",
-				viewName: "uimodule.ext.main.Main",
+				viewName: "uimodule.ext.view.Main",
 			},
 		};
 
@@ -25,7 +25,7 @@ describe("samples", () => {
 		const searchLocator = {
 			selector: {
 				id: "searchField",
-				viewName: "uimodule.ext.main.Main",
+				viewName: "uimodule.ext.view.Main",
 			},
 		};
 
@@ -40,7 +40,7 @@ describe("samples", () => {
 		const tilesLocator = {
 			selector: {
 				controlType: "sap.m.GenericTile",
-				viewName: "uimodule.ext.main.Main",
+				viewName: "uimodule.ext.view.Main",
 			},
 		};
 

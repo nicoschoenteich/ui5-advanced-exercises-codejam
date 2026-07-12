@@ -18,14 +18,14 @@ By the end of this chapter we will have built a custom control that uses a third
 - [12. Use custom control methods in controller](#12-use-custom-control-methods-in-controller)<br>
 - [13. Test the custom control](#13-test-the-custom-control)<br>
 
-### 1. Move 3D model into the application
+### 1. Copy 3D model into the application
 
 Before the start with custom control development, let's provide the supermarket 3D model to the application.
 
-➡️ Move the `application/uimodule/webapp/supermarket.glb` file (from the sample application included in this repo) into the `codejam.supermarket/uimodule/webapp` directory. You can do this via your file explorer or use this command:
+➡️ Copy the `application/uimodule/webapp/supermarket.glb` file (from the sample application included in this repo) into the `codejam.supermarket/uimodule/webapp` directory. You can do this via your file explorer or use this command:
 
 ```bash
-mv ../application/uimodule/webapp/supermarket.glb uimodule/webapp/
+cp ../application/uimodule/webapp/supermarket.glb uimodule/webapp/
 ```
 
 ### 2. Install required dependencies
@@ -46,14 +46,14 @@ We also installed the (non-development) dependencies [`three`](https://www.npmjs
 
 ### 3. Add configuration to `ui5.yaml`
 
-➡️ Add the following code to the `codejam.supermarket/uimodule/ui5.yaml` file inside the `customMiddleware` section:
+➡️ Add the following code to the `codejam.supermarket/uimodule/ui5.yaml` file inside the `customMiddleware` section (if not already added by the npm install script with the `-rte` option above):
 
 ```yaml
     - name: ui5-tooling-modules-middleware
       afterMiddleware: compression
 ```
 
-➡️ Add the following code to the `codejam.supermarket/uimodule/ui5.yaml` file inside the `customTasks` section:
+➡️ Add the following code to the `codejam.supermarket/uimodule/ui5.yaml` file inside the `customTasks` section (if not already added by the npm install script with the `-rte` option above):
 
 ```yaml
     - name: ui5-tooling-modules-task
@@ -69,21 +69,21 @@ We can now get into the actual control development. Our custom control will esse
 ➡️ Create a new file `codejam.supermarket/uimodule/webapp/ext/control/Supermarket.ts` with the following content:
 
 ```typescript
-import Control from "sap/ui/core/Control"
-import RenderManager from "sap/ui/core/RenderManager"
-import { MetadataOptions } from "sap/ui/core/Element"
+import Control from "sap/ui/core/Control";
+import RenderManager from "sap/ui/core/RenderManager";
+import { MetadataOptions } from "sap/ui/core/Element";
 import {
 	Scene,
 	PerspectiveCamera,
 	WebGLRenderer,
 	AmbientLight
-} from "three"
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
-import gsap from "gsap"
-import BusyIndicator from "sap/m/BusyIndicator"
-import Button from "sap/m/Button"
-import FlexBox from "sap/m/FlexBox"
+} from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import gsap from "gsap";
+import BusyIndicator from "sap/m/BusyIndicator";
+import Button from "sap/m/Button";
+import FlexBox from "sap/m/FlexBox";
 
 /**
  * @namespace uimodule.ext.control
@@ -93,7 +93,7 @@ export default class Supermarket extends Control {
 	static readonly metadata: MetadataOptions = {
 		properties: {},
 		aggregations: {}
-	}
+	};
 
     // placeholder for some private variables
 
@@ -110,7 +110,7 @@ export default class Supermarket extends Control {
 	static renderer = {
 		apiVersion: 4,
 		render: (rm: RenderManager, control: Supermarket) => {}
-	}
+	};
 }
 ```
 
@@ -140,15 +140,15 @@ Feel free to check out the UI5 documentation for [guidelines on how to develop c
 				multiple: false
 			}
 		}
-	}
+	};
 
-	private scene: Scene
-	private camera: PerspectiveCamera
-	private threeRenderer: WebGLRenderer
-	private controls: OrbitControls
-	private animationSpeed = 3000
-	private height: number
-	private width: number
+	private scene: Scene;
+	private camera: PerspectiveCamera;
+	private threeRenderer: WebGLRenderer;
+	private controls: OrbitControls;
+	private animationSpeed = 3000;
+	private height: number;
+	private width: number;
 ```
 
 The above metadata (incl. properties and aggregations) and variables lay the foundation for our custom control.
@@ -167,44 +167,44 @@ The above metadata (incl. properties and aggregations) and variables lay the fou
 	init(): void {
 		this.setAggregation("_busyIndicator", new BusyIndicator({
 			visible: true
-		}))
+		}));
 		this.setAggregation("_expand", new Button({
 			icon: "sap-icon://full-screen",
 			press: this.expand.bind(this, {})
-		}))
+		}));
 	}
 
 	onAfterRendering(): void {
 		const canvas = this.getDomRef() as HTMLCanvasElement;
-		const { width, height } = canvas.getBoundingClientRect()
+		const { width, height } = canvas.getBoundingClientRect();
 
-		this.height = height
-		this.width = width
+		this.height = height;
+		this.width = width;
 
 		this.threeRenderer = new WebGLRenderer({
 			canvas: canvas
-		})
-		this.threeRenderer.setSize(width, height)
+		});
+		this.threeRenderer.setSize(width, height);
 
-		this.scene = new Scene()
-		this.camera = new PerspectiveCamera(75, width / height, 0.1, 1000)
+		this.scene = new Scene();
+		this.camera = new PerspectiveCamera(75, width / height, 0.1, 1000);
 
-		const ambientLight = new AmbientLight(0xffffff)
-		this.scene.add(ambientLight)
+		const ambientLight = new AmbientLight(0xffffff);
+		this.scene.add(ambientLight);
 
-		const loader = new GLTFLoader()
+		const loader = new GLTFLoader();
 		loader.load("supermarket.glb", gltf => {
-			this.scene.add(gltf.scene)
-			this.setCameraPosition([{ x: 18.88, y: 2.44, z: -5.2 }], {})
-			const busyIndicator = this.getAggregation("_busyIndicator") as BusyIndicator
-			busyIndicator.setVisible(false)
-		})
+			this.scene.add(gltf.scene);
+			this.setCameraPosition([{ x: 18.88, y: 2.44, z: -5.2 }], {});
+			const busyIndicator = this.getAggregation("_busyIndicator") as BusyIndicator;
+			busyIndicator.setVisible(false);
+		});
 
-		this.controls = new OrbitControls(this.camera, this.threeRenderer.domElement)
+		this.controls = new OrbitControls(this.camera, this.threeRenderer.domElement);
 
-		this.animate()
+		this.animate();
 
-		this.camera.position.set(this.getX(), this.getY(), this.getZ())
+		this.camera.position.set(this.getX(), this.getY(), this.getZ());
 	}
 ```
 
@@ -223,35 +223,35 @@ In the `onAfterRendering()` method, which gets executed after the control has be
 
 ```typescript
 	private animate(): void {
-		this.threeRenderer.render(this.scene, this.camera)
-		this.controls.update()
-		requestAnimationFrame(this.animate.bind(this))
+		this.threeRenderer.render(this.scene, this.camera);
+		this.controls.update();
+		requestAnimationFrame(this.animate.bind(this));
 	}
 
 	public setCameraPosition(coordinates: Array<object>, { backToStart = false }: { backToStart?: boolean }): void {
 		if (backToStart) {
-			this.camera.position.set(18.88, 2.44, -5.2)
+			this.camera.position.set(18.88, 2.44, -5.2);
 		}
-		gsap.to(this.camera.position, { ...coordinates[0], duration: this.animationSpeed / 1000 })
+		gsap.to(this.camera.position, { ...coordinates[0], duration: this.animationSpeed / 1000 });
 		for (let i = 1; i < coordinates.length; i++) {
 			// eslint-disable-next-line @sap-ux/fiori-tools/sap-timeout-usage
 			window.setTimeout(() => {
-				gsap.to(this.camera.position, { ...coordinates[i], duration: this.animationSpeed / 1000 })
-			}, this.animationSpeed)
+				gsap.to(this.camera.position, { ...coordinates[i], duration: this.animationSpeed / 1000 });
+			}, this.animationSpeed);
 		}
 	}
 
 	public expand({ stayExpanded = false }: { stayExpanded?: boolean }): void {
-		const expand = this.getAggregation("_expand") as Button
-		const growFactor = this.getGrowFactor()
-		const icon = expand.getIcon()
-		const factor = icon === "sap-icon://full-screen" || stayExpanded ? growFactor : 1
-		const parent = this.getParent() as FlexBox
-		const parentDOMNode = parent.getDomRef() as HTMLDivElement
-		parentDOMNode.style.height = `${this.height * factor}px`
-		parentDOMNode.style.width = `${this.width * factor}px`
-		this.threeRenderer.setSize(this.width * factor, this.height * factor)
-		expand.setIcon(`sap-icon://${factor === growFactor ? "exit-" : ""}full-screen`)
+		const expand = this.getAggregation("_expand") as Button;
+		const growFactor = this.getGrowFactor();
+		const icon = expand.getIcon();
+		const factor = icon === "sap-icon://full-screen" || stayExpanded ? growFactor : 1;
+		const parent = this.getParent() as FlexBox;
+		const parentDOMNode = parent.getDomRef() as HTMLDivElement;
+		parentDOMNode.style.height = `${this.height * factor}px`;
+		parentDOMNode.style.width = `${this.width * factor}px`;
+		this.threeRenderer.setSize(this.width * factor, this.height * factor);
+		expand.setIcon(`sap-icon://${factor === growFactor ? "exit-" : ""}full-screen`);
 	}
 ```
 
@@ -268,32 +268,32 @@ We defined three methods that are specific to our custom control:
 	static renderer = {
 		apiVersion: 4,
 		render: (rm: RenderManager, control: Supermarket) => {
-			rm.openStart("canvas", control)
-			rm.style("height", "100%")
-			rm.style("width", "100%")
-			rm.openEnd()
-			rm.close("canvas")
-			rm.openStart("div")
-			rm.style("position", "absolute")
-			rm.style("top", "0")
-			rm.style("width", "100%")
-			rm.style("height", "100%")
-			rm.style("display", "flex")
-			rm.style("align-items", "center")
-			rm.style("justify-content", "center")
-			rm.style("pointer-events", "none")
-			rm.openEnd()
-			rm.renderControl(control.getAggregation("_busyIndicator") as Control)
-			rm.close("div")
-			rm.openStart("div")
-			rm.style("position", "absolute")
-			rm.style("top", "0.5rem")
-			rm.style("left", "0.5rem")
-			rm.openEnd()
-			rm.renderControl(control.getAggregation("_expand") as Control)
-			rm.close("div")
+			rm.openStart("canvas", control);
+			rm.style("height", "100%");
+			rm.style("width", "100%");
+			rm.openEnd();
+			rm.close("canvas");
+			rm.openStart("div");
+			rm.style("position", "absolute");
+			rm.style("top", "0");
+			rm.style("width", "100%");
+			rm.style("height", "100%");
+			rm.style("display", "flex");
+			rm.style("align-items", "center");
+			rm.style("justify-content", "center");
+			rm.style("pointer-events", "none");
+			rm.openEnd();
+			rm.renderControl(control.getAggregation("_busyIndicator") as Control);
+			rm.close("div");
+			rm.openStart("div");
+			rm.style("position", "absolute");
+			rm.style("top", "0.5rem");
+			rm.style("left", "0.5rem");
+			rm.openEnd();
+			rm.renderControl(control.getAggregation("_expand") as Control);
+			rm.close("div");
 		}
-	}
+	};
 ```
 
 The renderer is responsible for creating the HTML elements that make up our custom control. We defined the HTML elements and their styles using TypeScript. We also use the `rm.renderControl()` method to render the aggregations (like children UI5 controls inside our custom control) that we defined earlier.
@@ -351,7 +351,7 @@ This `.fixed` CSS class is used on the `FlexBox` that wraps around our custom co
 
 ### 12. Use custom control methods in controller
 
-➡️ Add the following method to the `codejam.supermarket/uimodule/webapp/ext/main/Main.controller.ts` file:
+➡️ Add the following method to the `codejam.supermarket/uimodule/webapp/ext/view/Main.controller.ts` file:
 
 ```typescript
 	public onFlyToProduct(event: Button$PressEvent): void {
