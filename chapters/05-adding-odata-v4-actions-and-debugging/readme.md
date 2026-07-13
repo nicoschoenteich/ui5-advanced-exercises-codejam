@@ -1,4 +1,4 @@
-# Chapter 04 - Adding OData V4 Actions and Debugging
+# Chapter 05 - Adding OData V4 Actions and Debugging
 
 By the end of this chapter we will have added and invoked an OData V4 action binding to our UI5 application, so users submit a rating. We will also have talked about debugging strategies.
 
@@ -159,4 +159,4 @@ The application now includes a rating indicator. Feel free to test it and see th
 
 <br>
 
-Continue to [Chapter 05 - Custom Controls and Third-Party Packages](/chapters/05-custom-controls-and-third-party-packages/)
+Continue to [Chapter 06 - Custom Controls and Third-Party Packages](/chapters/06-custom-controls-and-third-party-packages/)

@@ -1,4 +1,4 @@
-# Chapter 05 - Custom Controls and Third-Party Packages
+# Chapter 06 - Custom Controls and Third-Party Packages
 
 By the end of this chapter we will have built a custom control that uses a third-party package ([Three.js](https://www.npmjs.com/package/three)) and allows users to visually explore the supermarket in a 3D model and find a selected product.
 
@@ -351,16 +351,31 @@ This `.fixed` CSS class is used on the `FlexBox` that wraps around our custom co
 
 ### 12. Use custom control methods in controller
 
-➡️ Add the following method to the `codejam.supermarket/uimodule/webapp/ext/view/Main.controller.ts` file:
+➡️ Add the following methods to the `codejam.supermarket/uimodule/webapp/ext/view/Main.controller.ts` file:
 
 ```typescript
 	public onFlyToProduct(event: Button$PressEvent): void {
-		const source = event.getSource()
-		const context = source.getBindingContext()
-		const position = context?.getProperty("position")
-		const supermarket = this.getView()?.byId("supermarket") as Supermarket
-		supermarket.expand({ stayExpanded: true })
-		supermarket.setCameraPosition(JSON.parse(position), { backToStart: true })
+		const context = event.getSource().getBindingContext() as Context;
+		this.flyToProduct(context);
+	}
+
+	public onRowPress(event: Table$RowPressEvent): void {
+		// the FPM table's rowPress event exposes the pressed row's context via the "bindingContext" parameter.
+		// Its event parameters are not statically typed, so we read it via a typed cast of getParameters().
+		const { bindingContext } = event.getParameters() as unknown as { bindingContext: Context };
+		this.flyToProduct(bindingContext);
+	}
+
+	private flyToProduct(context?: Context): void {
+		if (!context) {
+			return;
+		}
+		const supermarket = this.getView()?.byId("supermarket") as Supermarket;
+		// "position" is not part of the table's selected columns, so request it as a late property
+		context.requestProperty("position").then((position: string) => {
+			supermarket.expand({ stayExpanded: true });
+			supermarket.setCameraPosition(JSON.parse(position), { backToStart: true });
+		});
 	}
 ```
 
@@ -368,12 +383,16 @@ This `.fixed` CSS class is used on the `FlexBox` that wraps around our custom co
 
 ```typescript
 import { Button$PressEvent } from "sap/m/Button";
+import { Table$RowPressEvent } from "sap/fe/macros/Table";
+import Context from "sap/ui/model/odata/v4/Context";
 import Supermarket from "../control/Supermarket";
 ```
 
-With this method (which is invoked on the `press` event of the product tiles - check the xml view), we can fly to a specific product in the 3D model. For that, we first get the data for the position of the product from its context, and then use this data for the `setCameraPosition` method (after using `expand`) of our supermarket custom control.
+We wired two entry points to the same behavior. `onFlyToProduct` is invoked on the `press` event of the product tiles, and `onRowPress` on the `rowPress` event of the FPM table we added in [Chapter 04](/chapters/04-fpm-table-building-block/) - both check the XML view. Each obtains the binding context of the selected product and hands it to a shared private `flyToProduct` method.
 
-If you feel like it, you can test the code completion (powered by TypeScript) by typing `supermarket.` at the end of the method. You should see all available methods (obviously only the public ones) plus their documentation inside your IDE. Pretty nice, isn't it?
+There we use the context to fly to the product in the 3D model: we `expand` the custom control and call its `setCameraPosition` method with the product's position. Note that we use `context.requestProperty("position")` instead of reading the property synchronously. This is important for the table: the `Table` building block only requests the columns defined in the annotation (`title`, `category_name`, `stock`), so `position` is not loaded up front. `requestProperty` fetches such a ["late property"](https://ui5.sap.com/#/api/sap.ui.model.odata.v4.Context%23methods/requestProperty) on demand and returns a promise - which also works fine for the tiles, whose binding requests all properties anyway.
+
+If you feel like it, you can test the code completion (powered by TypeScript) by typing `supermarket.` inside the `flyToProduct` method. You should see all available methods (obviously only the public ones) plus their documentation inside your IDE. Pretty nice, isn't it?
 
 ### 13. Test the custom control
 
@@ -388,4 +407,4 @@ The application now includes the custom control that uses third-party packages. 
 
 ![application](./application.gif)
 
-Continue to [Chapter 06 - Testing: Current Project Setup](/chapters/06-testing-current-project-setup/)
+Continue to [Chapter 07 - Testing: Current Project Setup](/chapters/07-testing-current-project-setup/)

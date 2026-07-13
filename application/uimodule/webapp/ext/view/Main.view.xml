@@ -3,6 +3,7 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 	xmlns:cc="uimodule.ext.control"
+	xmlns:macros="sap.fe.macros"
 	controllerName="uimodule.ext.view.Main">
 	<Page id="Main" showHeader="false" class="sapUiContentPadding">
 		<VBox justifyContent="SpaceBetween" width="100%" height="100%">
@@ -19,8 +20,19 @@
 						liveChange=".onSearchProducts"
 						width="480px" />
 				</Panel>
+				<SegmentedButton
+					id="viewToggle"
+					selectedKey="{view>/mode}"
+					selectionChange=".onToggleView"
+					class="sapUiMediumMarginTop">
+					<items>
+						<SegmentedButtonItem id="viewToggleList" key="list" icon="sap-icon://grid" tooltip="List" />
+						<SegmentedButtonItem id="viewToggleTable" key="table" icon="sap-icon://table-view" tooltip="Table" />
+					</items>
+				</SegmentedButton>
 				<HBox
 					id="products"
+					visible="{= ${view>/mode} === 'list' }"
 					items="{path: '/Products', parameters: { '$select': '*' }}"
 					class="sapUiMediumMarginTop"
 					wrap="Wrap"
@@ -35,6 +47,17 @@
 						</TileContent>
 					</GenericTile>
 				</HBox>
+				<VBox
+					id="productsTableContainer"
+					visible="{= ${view>/mode} === 'table' }"
+					width="800px"
+					class="sapUiMediumMarginTop">
+					<macros:Table
+						id="productsTable"
+						metaPath="@com.sap.vocabularies.UI.v1.LineItem"
+						contextPath="/Products"
+						rowPress=".onRowPress" />
+				</VBox>
 			</VBox>
 			<VBox alignItems="Center">
 				<Title text="Do you enjoy this application?" />

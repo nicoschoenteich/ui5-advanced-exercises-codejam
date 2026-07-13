@@ -138,4 +138,4 @@ The application now contains a list of products and the search field. Feel free 
 
 </details>
 
-Continue to [Chapter 04 - Adding OData V4 Actions and Debugging](/chapters/04-adding-odata-v4-actions-and-debugging/)
+Continue to [Chapter 04 - Using the FPM Table Building Block](/chapters/04-fpm-table-building-block/)

@@ -11,6 +11,10 @@ import Label from "sap/m/Label";
 import CompositeBinding from "sap/ui/model/CompositeBinding";
 import ODataPropertyBinding from "sap/ui/model/odata/v4/ODataPropertyBinding";
 import { Button$PressEvent } from "sap/m/Button";
+import { SegmentedButton$SelectionChangeEvent } from "sap/m/SegmentedButton";
+import { Table$RowPressEvent } from "sap/fe/macros/Table";
+import Context from "sap/ui/model/odata/v4/Context";
+import JSONModel from "sap/ui/model/json/JSONModel";
 import Supermarket from "../control/Supermarket";
 
 /**
@@ -23,9 +27,11 @@ export default class Main extends Controller {
 	 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 	 * @memberOf uimodule.ext.view.Main
 	 */
-	// public onInit(): void {
-	//     super.onInit(); // needs to be called to properly initialize the page controller
-	//}
+	public onInit(): void {
+		super.onInit(); // needs to be called to properly initialize the page controller
+		// local view model to control whether the products are shown as a tile list or an FPM table
+		this.getView()?.setModel(new JSONModel({ mode: "list" }), "view");
+	}
 
 	/**
 	 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
@@ -69,6 +75,14 @@ export default class Main extends Controller {
 		binding.filter(filter);
 	}
 
+	public onToggleView(event: SegmentedButton$SelectionChangeEvent): void {
+		// the "view" model's "mode" is two-way bound to the SegmentedButton, which in turn
+		// drives the visibility of the tile list and the FPM table via expression binding.
+		// This handler is a hook for any additional logic when switching views.
+		const mode = event.getParameter("selectedKey");
+		MessageToast.show(`Switched to ${mode} view.`);
+	}
+
 	public onCreateRating(event: RatingIndicator$ChangeEvent) {
 		const ratingIndicator = event.getSource();
 		const operation = ratingIndicator.getObjectBinding() as ODataContextBinding;
@@ -85,12 +99,27 @@ export default class Main extends Controller {
 	}
 
 	public onFlyToProduct(event: Button$PressEvent): void {
-		const source = event.getSource()
-		const context = source.getBindingContext()
-		const position = context?.getProperty("position")
-		const supermarket = this.getView()?.byId("supermarket") as Supermarket
-		supermarket.expand({ stayExpanded: true })
-		supermarket.setCameraPosition(JSON.parse(position), { backToStart: true })
+		const context = event.getSource().getBindingContext() as Context;
+		this.flyToProduct(context);
+	}
+
+	public onRowPress(event: Table$RowPressEvent): void {
+		// the FPM table's rowPress event exposes the pressed row's context via the "bindingContext" parameter.
+		// Its event parameters are not statically typed, so we read it via a typed cast of getParameters().
+		const { bindingContext } = event.getParameters() as unknown as { bindingContext: Context };
+		this.flyToProduct(bindingContext);
+	}
+
+	private flyToProduct(context?: Context): void {
+		if (!context) {
+			return;
+		}
+		const supermarket = this.getView()?.byId("supermarket") as Supermarket;
+		// "position" is not part of the table's selected columns, so request it as a late property
+		context.requestProperty("position").then((position: string) => {
+			supermarket.expand({ stayExpanded: true });
+			supermarket.setCameraPosition(JSON.parse(position), { backToStart: true });
+		});
 	}
 
 }
