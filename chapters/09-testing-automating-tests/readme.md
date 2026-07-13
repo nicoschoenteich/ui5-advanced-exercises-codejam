@@ -1,4 +1,4 @@
-# Chapter 08 - Testing: Automating Tests
+# Chapter 09 - Testing: Automating Tests
 
 By the end of this chapter, we will know how to automate our test setup.
 
@@ -59,4 +59,4 @@ As we are using the `ui5-test-runner`, code coverage can also be supported for t
 
 ➡️ Just check out the following page: <https://github.com/ArnaudBuchholz/ui5-test-runner/blob/main/docs/coverage.md>.
 
-Continue to [Chapter 09 - Deployment](/chapters/09-deployment/)
+Continue to [Chapter 10 - Deployment](/chapters/10-deployment/)
