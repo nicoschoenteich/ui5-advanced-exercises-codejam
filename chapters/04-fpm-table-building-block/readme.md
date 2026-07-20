@@ -118,7 +118,7 @@ xmlns:macros="sap.fe.macros"
 				</VBox>
 ```
 
-The `contextPath="/Products"` tells the building block which entity set to bind to, and `metaPath="@com.sap.vocabularies.UI.v1.LineItem"` points it at the annotation we created in step 1. That is all the building block needs to render a full table - notice how little markup this is compared to the freestyle `HBox`/`GenericTile` list. The `rowPress` event points at an `onRowPress` handler that we will implement in [Chapter 06](/chapters/06-custom-controls-and-third-party-packages/), together with the tile's `onFlyToProduct` handler, to navigate the 3D model when a product is selected. The visibility of both the tile list and the table is controlled by an [expression binding](https://ui5.sap.com/#/topic/daf6852a04b44d118963968a1239d2c0) against a `view` model that we will set up in the next step.
+The `contextPath="/Products"` tells the building block which entity set to bind to, and `metaPath="@com.sap.vocabularies.UI.v1.LineItem"` points it at the annotation we created in step 1. That is all the building block needs to render a full table - notice how little markup this is compared to the freestyle `HBox`/`GenericTile` list. The `rowPress` event points at an `onRowPress` handler that we will implement in [Chapter 06](/chapters/06-custom-controls-and-third-party-packages/), together with the tile's `onTilePress` handler, to navigate the 3D model when a product is selected. The visibility of both the tile list and the table is controlled by an [expression binding](https://ui5.sap.com/#/topic/daf6852a04b44d118963968a1239d2c0) against a `view` model that we will set up in the next step.
 
 <details>
 <summary>Why is the <code>macros:Table</code> wrapped in a <code>VBox</code>? 💬</summary>

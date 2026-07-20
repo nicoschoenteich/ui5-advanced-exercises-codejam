@@ -44,7 +44,7 @@ We want to build an app that allow users to browse and search a list of products
 					<GenericTile
 						header="{title}"
 						subheader="{category_name}"
-						press=".onFlyToProduct"
+						press=".onTilePress"
 						class="sapUiTinyMarginBegin sapUiTinyMarginBottom">
 						<TileContent>
 							<ImageContent src="{image}" />

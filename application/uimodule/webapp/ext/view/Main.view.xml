@@ -40,7 +40,7 @@
 					<GenericTile
 						header="{title}"
 						subheader="{category_name}"
-						press=".onFlyToProduct"
+						press=".onTilePress"
 						class="sapUiTinyMarginBegin sapUiTinyMarginBottom">
 						<TileContent>
 							<ImageContent src="{image}" />

@@ -98,7 +98,7 @@ export default class Main extends Controller {
 		});
 	}
 
-	public onFlyToProduct(event: Button$PressEvent): void {
+	public onTilePress(event: Button$PressEvent): void {
 		const context = event.getSource().getBindingContext() as Context;
 		this.flyToProduct(context);
 	}
