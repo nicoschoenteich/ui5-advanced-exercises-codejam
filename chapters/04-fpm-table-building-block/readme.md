@@ -160,6 +160,7 @@ The view references a `view` model (for the current mode) and an `onToggleView` 
 ```typescript
 import { SegmentedButton$SelectionChangeEvent } from "sap/m/SegmentedButton";
 import JSONModel from "sap/ui/model/json/JSONModel";
+import MessageToast from "sap/m/MessageToast";
 ```
 
 We set up a small named JSON model (`view`) with a `mode` property that defaults to `"list"`. The `SegmentedButton`'s `selectedKey` is two-way bound to `view>/mode`, so selecting a segment updates the model, and the `visible` expression bindings on the tile list and the table react automatically. The `onToggleView` handler itself is not strictly required for the toggle to work (the binding does the job), but it is a convenient place to react to the switch - here we simply show a message toast.
@@ -182,6 +183,8 @@ npm run dev:server
 ```
 
 The application now shows a segmented button below the search field. It starts in "list" mode with the familiar product tiles. Switch to "table" mode and you will see the `Table` building block, rendered entirely from the `UI.LineItem` annotation, with the columns Product, Category, and Stock - plus a built-in search field and personalization options in the table toolbar. Switch back to "list" mode to return to the tiles. Both the tiles and the table rows will fly the 3D camera to the selected product once you have built the custom control and its handlers in [Chapter 06](/chapters/06-custom-controls-and-third-party-packages/).
+
+![application with segmented button](./application.png)
 
 ## Further question to discuss
 
