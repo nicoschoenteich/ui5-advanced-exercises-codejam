@@ -1,4 +1,4 @@
-# Chapter 07 - Testing: Recreating Setup
+# Chapter 08 - Testing: Recreating Setup
 
 By the end of this chapter, we will know how to recreate and execute a holistic testing setup including QUnit, OPA, and WDI5 tests.
 
@@ -326,7 +326,7 @@ npm run dev:server
 
 ### 13. Implement *WDI5* tests
 
-The initial project template already came with the boilerplate for *WDI5* tests. We have already used the basic configuration to start a simple test in the [previous chapter](/chapters/06-testing-current-project-setup#2-run-basic-wdi5-test).
+The initial project template already came with the boilerplate for *WDI5* tests. We have already used the basic configuration to start a simple test in the [previous chapter](/chapters/07-testing-current-project-setup#2-run-basic-wdi5-test).
 
 This is the current structure of the *WDI5* tests:
 
@@ -422,4 +422,4 @@ You will notice how the *WDI5* tests are executed in the browser, similar to the
 
 ![WDI5 results](wdi5-results.png)
 
-Continue to [Chapter 08 - Testing: Automating Tests](/chapters/08-testing-automating-tests/)
+Continue to [Chapter 09 - Testing: Automating Tests](/chapters/09-testing-automating-tests/)

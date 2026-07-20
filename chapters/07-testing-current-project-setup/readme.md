@@ -1,4 +1,4 @@
-# Chapter 06 - Testing: Current Project Setup
+# Chapter 07 - Testing: Current Project Setup
 
 By the end of this chapter, we will know how to run QUnit and WDI5 test as part of our existing project configuration.
 
@@ -70,4 +70,4 @@ This will launch the *WDI5* tests defined in the `codejam.supermarket/uimodule/w
 
 ![wdi5 result](wdi5-result.png)
 
-Continue to [Chapter 07 - Testing: Recreating Setup](/chapters/07-testing-recreating-setup/)
+Continue to [Chapter 08 - Testing: Recreating Setup](/chapters/08-testing-recreating-setup/)

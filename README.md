@@ -10,7 +10,7 @@ Please check the [prerequisites](/chapters/00-prep-dev-environment/readme.md#1-p
 
 The material in this repository builds on top of the [core principles of UI5](https://github.com/SAP-Samples/ui5-exercises-codejam), introducing you to more advanced topics and techniques. This repository is a step-by-step guide explaining how build apply these techniques to an existing UI5 application to improve it and add more features. The finished app is a simple supermarket application that allows users to find products and see an 3D model of where these are located in the store. 
 
-![The finished app](/chapters/05-custom-controls-and-third-party-packages/application.gif)
+![The finished app](/chapters/06-custom-controls-and-third-party-packages/application.gif)
 
 The finished application already exists in the [application/](/application) directory, but we want to rebuild it, step-by-step, from scratch. You can compare the finished app with your version in case you have issues along the way.
 
@@ -49,12 +49,13 @@ The instructor will set you off on the first chapter. Do not proceed to the next
 - [01 - Generating a Full-Stack Project](/chapters/01-generating-full-stack-project/)
 - [02 - Preparing the CAP Server](/chapters/02-preparing-cap-server/)
 - [03 - Adding Content to the UI5 Application](/chapters/03-adding-content-to-ui5-app/)
-- [04 - Adding OData V4 Actions and Debugging](/chapters/04-adding-odata-v4-actions-and-debugging/)
-- [05 - Custom Controls and Third-Party Packages](/chapters/05-custom-controls-and-third-party-packages/)
-- [06 - Testing: Current Project Setup](/chapters/06-testing-current-project-setup/)
-- [07 - Testing: Recreating Setup](/chapters/07-testing-recreating-setup/)
-- [08 - Testing: Automating Tests](/chapters/08-testing-automating-tests/)
-- [09 - Deployment](/chapters/09-deployment/)
+- [04 - Using the FPM Table Building Block](/chapters/04-fpm-table-building-block/)
+- [05 - Adding OData V4 Actions and Debugging](/chapters/05-adding-odata-v4-actions-and-debugging/)
+- [06 - Custom Controls and Third-Party Packages](/chapters/06-custom-controls-and-third-party-packages/)
+- [07 - Testing: Current Project Setup](/chapters/07-testing-current-project-setup/)
+- [08 - Testing: Recreating Setup](/chapters/08-testing-recreating-setup/)
+- [09 - Testing: Automating Tests](/chapters/09-testing-automating-tests/)
+- [10 - Deployment](/chapters/10-deployment/)
 
 ## Feedback
 

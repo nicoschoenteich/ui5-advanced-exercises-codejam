@@ -1,4 +1,4 @@
-# Chapter 09 - Deployment
+# Chapter 10 - Deployment
 
 By the end of this chapter we will have deployed our application to the Application Frontend service on SAP Business Technology Platform (BTP).
 
